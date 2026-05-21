@@ -49,23 +49,23 @@ def ler_instancias (file_path):
                     demanda = int(partes[1])
                     demandas.append(demanda)
 
-    num_cidades = len(coordenadas)
+    num_clientes = len(coordenadas)
 
     # criar matriz de distâncias inicializada com zeros
     matriz_distancias = []
-    for i in range (num_cidades):
+    for i in range (num_clientes):
         linha = []
-        for j in range(num_cidades):
+        for j in range(num_clientes):
             linha.append(0)
         matriz_distancias.append(linha)
     
     # preencher a matriz com as distancias
-    for i in range(num_cidades):
-        for j in range(num_cidades):
+    for i in range(num_clientes):
+        for j in range(num_clientes):
             if i != j:
                 dist = calcular_distancia(
                     coordenadas[i][0], coordenadas[i][1], coordenadas[j][0], coordenadas[j][1]
                     )
                 matriz_distancias[i][j] = dist
 
-    return matriz_distancias, num_cidades, demandas, capacidade
+    return matriz_distancias, num_clientes, demandas, capacidade

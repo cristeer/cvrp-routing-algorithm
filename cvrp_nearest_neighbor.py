@@ -1,34 +1,34 @@
-def nearest_neighbor (matriz_distancias, num_cidades, demandas, capacidade):
-    visitados = [False] * num_cidades
+def nearest_neighbor (matriz_distancias, num_clientes, demandas, capacidade):
+    visitados = [False] * num_clientes
     visitados[0] = True  # Começa no depósito
-    cidades_visitadas = 1
+    clientes_visitados = 1
     
     custo_total = 0.0
     carga_atual = 0
-    cidade_atual = 0
+    cliente_atual = 0
 
-    while cidades_visitadas < num_cidades:
+    while clientes_visitados < num_clientes:
         menor_dist = float('inf') 
-        prox_cidade = None
+        prox_cliente = None
 
-        for i in range (1, num_cidades):
-            if not visitados[i] and matriz_distancias[cidade_atual][i] < menor_dist:
+        for i in range (1, num_clientes):
+            if not visitados[i] and matriz_distancias[cliente_atual][i] < menor_dist:
                 if carga_atual + demandas[i] <= capacidade:
-                    menor_dist = matriz_distancias[cidade_atual][i]
-                    prox_cidade = i
+                    menor_dist = matriz_distancias[cliente_atual][i]
+                    prox_cliente = i
 
-            if prox_cidade is not None:
-                custo_total += menor_dist
-                cidade_atual = prox_cidade
-                visitados[cidade_atual] = True
-                carga_atual += demandas[cidade_atual]
-                cidades_visitadas += 1
-            else:
-                #atingiu a capacidade, volta para o depósito
-                custo_total += matriz_distancias[cidade_atual][0]
-                cidade_atual = 0
-                carga_atual = 0
+        if prox_cliente is not None:
+            custo_total += menor_dist
+            cliente_atual = prox_cliente
+            visitados[cliente_atual] = True
+            carga_atual += demandas[cliente_atual]
+            clientes_visitados += 1
+        else:
+            # atingiu a capacidade, volta para o depósito
+            custo_total += matriz_distancias[cliente_atual][0]
+            cliente_atual = 0
+            carga_atual = 0
         
-    custo_total += matriz_distancias[cidade_atual][0]  # Volta para o depósito no final
+    custo_total += matriz_distancias[cliente_atual][0]  # Volta para o depósito no final
     return custo_total
                 

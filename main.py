@@ -20,14 +20,14 @@ def main():
 
     for ficheiro in ficheiros:
         caminho_ficheiro = os.path.join(pasta, ficheiro)
-        matriz_distancias, num_cidades, demandas, capacidade = cvrplib_reader.ler_instancias(caminho_ficheiro)
+        matriz_distancias, num_clientes, demandas, capacidade = cvrplib_reader.ler_instancias(caminho_ficheiro)
 
         inicio = time.time()
-        custo_fo = cvrp_nearest_neighbor.nearest_neighbor(matriz_distancias, num_cidades, demandas, capacidade)
+        custo_fo = cvrp_nearest_neighbor.nearest_neighbor(matriz_distancias, num_clientes, demandas, capacidade)
         fim = time.time()
         tempo_execucao = fim - inicio
 
-        print(f"Instancia: {ficheiro} | Cidades: {num_cidades} | Capacidade veiculo: {capacidade}")
+        print(f"Instancia: {ficheiro} | Clientes: {num_clientes} | Capacidade veiculo: {capacidade}")
         print(f"Solução do algoritmo (fo): {custo_fo}")
         print(f"Tempo de Execução: {tempo_execucao:.6f} seg")
         print("-" * 50)
