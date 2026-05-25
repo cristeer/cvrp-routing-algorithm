@@ -1,4 +1,4 @@
-import cvrplib_reader, cvrp_nearest_neighbor
+import cvrplib_reader, cvrp_nearest_neighbor, cvrp_busca_local
 import time
 import os
 
@@ -23,12 +23,17 @@ def main():
         matriz_distancias, num_clientes, demandas, capacidade = cvrplib_reader.ler_instancias(caminho_ficheiro)
 
         inicio = time.time()
-        custo_fo = cvrp_nearest_neighbor.nearest_neighbor(matriz_distancias, num_clientes, demandas, capacidade)
+
+        rota_inicial, custo_fo_inicial = cvrp_nearest_neighbor.nearest_neighbor(matriz_distancias, num_clientes, demandas, capacidade)
+
+        rota_final, custo_fo_final = cvrp_busca_local.dois_opt_primeira_melhora(rota_inicial, matriz_distancias)
+
         fim = time.time()
         tempo_execucao = fim - inicio
 
         print(f"Instancia: {ficheiro} | Clientes: {num_clientes} | Capacidade veiculo: {capacidade}")
-        print(f"Solução do algoritmo (fo): {custo_fo}")
+        print(f"Custo (fo) inicial [vizinho mais proximo]: {custo_fo_inicial}")
+        print(f"Custo (fo) final [busca local]: {custo_fo_final}")
         print(f"Tempo de Execução: {tempo_execucao:.6f} seg")
         print("-" * 50)
 

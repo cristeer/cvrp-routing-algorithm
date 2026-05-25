@@ -3,6 +3,7 @@ def nearest_neighbor (matriz_distancias, num_clientes, demandas, capacidade):
     visitados[0] = True  # Começa no depósito
     clientes_visitados = 1
     
+    rota = [0]  # guardar sequencia da rota que começa no depósito
     custo_total = 0.0
     carga_atual = 0
     cliente_atual = 0
@@ -22,13 +23,17 @@ def nearest_neighbor (matriz_distancias, num_clientes, demandas, capacidade):
             cliente_atual = prox_cliente
             visitados[cliente_atual] = True
             carga_atual += demandas[cliente_atual]
+            rota.append(cliente_atual)
             clientes_visitados += 1
         else:
             # atingiu a capacidade, volta para o depósito
             custo_total += matriz_distancias[cliente_atual][0]
+            rota.append(0)
             cliente_atual = 0
             carga_atual = 0
         
     custo_total += matriz_distancias[cliente_atual][0]  # Volta para o depósito no final
-    return custo_total
+    rota.append(0)
+
+    return rota, custo_total
                 
